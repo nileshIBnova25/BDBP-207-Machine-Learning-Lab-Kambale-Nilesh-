@@ -157,8 +157,6 @@ def main():
         scaler = scaler.fit(X_train)
         X_train_scaled = scaler.transform(X_train)
         X_test_scale = scaler.transform(X_test)
-        print(X_train_scaled.shape)
-        print(X_test_scale.shape)
 
         model = LinearRegression()                    #4 Intializing the model
 
