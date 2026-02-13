@@ -1,0 +1,193 @@
+#-------------Import-----------------------------------#
+#Due to Scratch implementation & use of For loop it is taking average of 35sec
+import time
+from sklearn.datasets import fetch_california_housing
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+#------------------------------------------------------#
+
+start = time.time()
+
+
+
+#======================================================#
+#-------------------- set parameters here--------------#
+col = 5             #                                  #      # it will be column for y = 4 for disese &/ 5 for disese fluct
+alpha = 1e-5        #                                  #      # learning rate
+iteration = 1000    #                                  #      # No of iteraton for large data if nned to increase
+tol = 0.001         #                                  #      # Toleration limit fopr diffrence between 2 theta
+#------------------------------------------------------#
+#======================================================#
+
+
+
+#---------------------------------------------------------------------------------------#
+# 1)Load Data Set
+
+# b) California Housing
+def load_data():
+    [X,y] = fetch_california_housing(return_X_y=True) # 1)Load Data Set
+    return X,y
+X,y=load_data()
+
+
+
+#2) Divide it into train-test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=999)
+
+
+#============Converting-Train-Data-In-To-New-Train-&-Validation=========================#
+
+def create_val_set(X):
+    X=pd.DataFrame(X)
+    start_row = 0                         # This are the lines which will for Creation of validation which will be 1/5 20%
+    split_row = round(4 * len(X) / 5)
+    end_row = round(len(X))
+    X_train = X[start_row: split_row]
+    index=X.index[split_row:end_row]
+    X_val = X.drop(index)
+    return X_train,X_val
+
+X_train,X_val=create_val_set(X_train)
+y_train,y_val=create_val_set(y_train)
+#---------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------#
+
+
+
+
+
+
+n,d=X_train.shape
+#---------------------------------------------------------------------------------------#
+scaler=StandardScaler()
+X_train=scaler.fit_transform(X_train)
+X_val=scaler.transform(X_val)
+
+
+#---------------------------------------------------------------------------------------#
+def add_intercept(X_train):
+    x0=np.ones((X_train.shape[0],1))
+    X_train_add=np.hstack((x0,X_train))
+    return X_train_add
+
+
+def cr_theta(X_train_inc):
+    theta=[0]*X_train_inc.shape[1]
+    return theta
+
+X_train_inc=(add_intercept(X_train))
+theta=cr_theta(X_train_inc)
+X_val_inc=(add_intercept(X_val))
+
+
+# changing data frame to list
+x=X_train_inc.tolist()
+y=y_train.values.flatten().tolist()
+x_val=X_val_inc.tolist()
+y_val=y_val.values.flatten().tolist()
+
+#----------------------------------------------------------------------------------------#
+
+
+
+#----------------------------------------------------------------------------------------#
+def hypothesis_fun(x, theta, i2):
+    total = 0
+    for i1 in range(len(theta)):
+        total += x[i2][i1] * theta[i1]
+    return total
+
+
+def deriv_fun(x, y, theta, i3):
+    z = 0
+    for i2 in range(len(x)):
+        z += (hypothesis_fun(x, theta, i2) - y[i2]) * x[i2][i3]
+    return z
+
+
+def cost_fun(x,y,theta):
+    J_of_theta = 0
+    for i in range(len(x)):
+        J_of_theta += (hypothesis_fun(x, theta, i) - y[i]) ** 2
+    return J_of_theta
+#---------------------------------------------------------------------------------------#
+
+#-------------------------R2 SCORE CALCULATION FUNCTION---------------------------------#
+
+def r2score(y_test, y_pred):
+    mean_y= sum(y_test) / len(y_test)
+    sum_of_square_test = sum((y_test[i] - mean_y) ** 2 for i in range(len(y_test)))
+    sum_of_square_res = sum((y_test[i] - y_pred[i]) ** 2 for i in range(len(y_test)))
+    return 1 - (sum_of_square_res/sum_of_square_test)
+
+#---------------------------------------------------------------------------------------#
+
+
+#---------------------------------------------------------------main function---------------------------------#
+def main():
+    def get_theta(theta, x, y, alpha, iteration, tol):
+
+        for itr in range(iteration):
+            new_theta = [0] * len(theta)
+
+            for i3 in range(len(theta)):
+                new_theta[i3] = round(theta[i3] - alpha * deriv_fun(x, y, theta, i3),10)
+
+            # check difference between old and new theta
+            diff = max(abs(new_theta[i] - theta[i]) for i in range(len(theta)))
+
+            theta = new_theta  # update theta
+
+            j_theta = cost_fun(x, y, theta)
+#            print(f'Iteration {itr}: theta = {theta}, cost = {j_theta}, diff = {diff}')
+
+            # stop if difference is small
+            if diff < tol:
+                print(f"Stopped early at iteration {itr}")
+                #print(len(x_test), len(x_test[0]), len(theta))
+                break
+        return theta
+
+
+
+    def y_predict(a, b):
+        rows_a = len(a)
+        cols_a = len(a[0])
+
+        if cols_a != len(b):
+            raise ValueError("Number of columns of a must match size of vector b")
+
+        result = [0] * rows_a
+
+        for i in range(rows_a):
+            for k in range(cols_a):
+                result[i] += a[i][k] * b[k]
+
+        return result
+    print("#==========================Comparing-Models-With-Diffrent-Parameters==========================#")
+
+    model_1 = get_theta(theta, x, y, 0.00005, 500, 0.001)
+    y_model1_pred=y_predict(x_val,model_1)
+    r2_model1=r2score(y_val,y_model1_pred)
+
+    model_2 = get_theta(theta, x, y, 0.00001, 800, 0.001)
+    y_model2_pred = y_predict(x_val, model_2)
+    r2_model2 = r2score(y_val, y_model2_pred)
+
+    model_3 = get_theta(theta, x, y, 0.00001, 200, 0.01)
+    y_model3_pred=y_predict(x_val,model_3)
+    r2_model3=r2score(y_val,y_model3_pred)
+
+    print(f"R2 Scores of model_1: {r2_model1}"
+          f"\nR2 Scores of model_2: {r2_model2}"
+          f"\nR2 Scores of model_3: {r2_model3}")
+
+if __name__ == "__main__":
+    main()
+#--------------------------------------------------------------------------------------------------------------#
+end = time.time()
+print(f"{end - start} in sec || in minutes {(end - start)/60} ||")
+
