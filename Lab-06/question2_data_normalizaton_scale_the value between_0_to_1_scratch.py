@@ -31,7 +31,7 @@ def norm_data(df,x):
     X_df = df.values.tolist()
     print(len(X_df[1]))
     for i in range(len(X_df[1])):
-        col_values=[X_df[j][i] for j in range(len(X_df[1]))]
+        col_values=[X_df[j][i] for j in range(len(X_df))]
         min_val=min(col_values)
         max_val=max(col_values)
 

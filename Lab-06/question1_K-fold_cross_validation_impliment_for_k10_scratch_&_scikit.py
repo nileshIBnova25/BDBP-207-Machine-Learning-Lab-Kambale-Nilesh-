@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 col = 5             #                                  #      # it will be column for y = 4 for disease &/ 5 for disease fluct
 alpha = 1e-2        #                                  #      # learning rate
 iteration = 1000    #                                  #      # No of iteration for large data if need to increase
-tol = 0.001         #                                  #      # Toleration limit for difference between 2 theta
+tol = 0.0000001         #                                  #      # Toleration limit for difference between 2 theta
 k = 10              #                                  #      # K fold validation of data set
 #------------------------------------------------------#
 #======================================================#
@@ -21,8 +21,8 @@ k = 10              #                                  #      # K fold validatio
 #---------------------------------------------------------------------------------------#
 # 1)Load Data Set
 
-df=pd.read_csv('simulated_data_multiple_linear_regression_for_ML.csv')
-
+df_r=pd.read_csv('simulated_data_multiple_linear_regression_for_ML.csv')
+df=df_r.sample(frac=1, random_state=42).reset_index(drop=True)
 #---------------------------------------------------------------------------------------#
 
 #---------------------------------------------------------------------------------------#

@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.datasets import fetch_california_housing
+from sklearn.utils import shuffle
 from sklearn.preprocessing import StandardScaler
 import time
 #------------------------------------------------------#
@@ -31,8 +32,10 @@ def load_data():
     [X,y] = fetch_california_housing(return_X_y=True) # 1)Load Data Set
     return X,y
 X1,Y1=load_data()
-X1=pd.DataFrame(X1)
-Y1=pd.Series(Y1)
+X1_un=pd.DataFrame(X1)
+Y1_un=pd.Series(Y1)
+
+X1,Y1=shuffle(X1_un,Y1_un,random_state=42)
 
 
 #---------------------------------------------------------------------------------------#
@@ -53,7 +56,12 @@ scaler = StandardScaler()
 def k_fold_creation(X,Y,k,i):
 
     start_row=round(i*len(X)/k)                               # This are the lines which will do k fold validation
-    end_row=round((i+1)*len(X)/k)
+
+    if round((i+1)*len(X)/k) < len(X):
+        end_row=len(X)
+    else :
+
+        end_row=round((i+1)*len(X)/k)
     print(start_row,end_row)
 
     index = X.index[start_row: end_row]
