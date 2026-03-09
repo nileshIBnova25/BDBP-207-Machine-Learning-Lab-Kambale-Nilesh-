@@ -1,7 +1,6 @@
 #-------------Import-----------------------------------#
 import numpy as np
 import pandas as pd
-from orca.punctuation_settings import infinity
 from sklearn.preprocessing import StandardScaler
 import random
 import sys

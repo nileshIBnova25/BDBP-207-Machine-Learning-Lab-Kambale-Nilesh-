@@ -2,6 +2,7 @@
 #4.​ Complete the following tutorial
 #a.​ https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_california_housin
 #g.html
+import sys
 def main():
     from sklearn.datasets import fetch_california_housing
 

@@ -17,7 +17,7 @@ col = 5             #                                  #      # it will be colum
 alpha = 1e-3        #                                  #      # learning rate
 iteration = 1000    #                                  #      # No of iteration for large data if need to increase
 tol = 0.001         #                                  #      # Toleration limit for difference between 2 theta
-k = 10                 #                                  #      # K fold validation of data set
+k = 10              #                                  #      # K fold validation of data set
 #------------------------------------------------------#
 #======================================================#
 
