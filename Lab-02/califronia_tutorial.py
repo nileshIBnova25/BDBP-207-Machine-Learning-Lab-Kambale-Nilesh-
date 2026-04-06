@@ -107,9 +107,8 @@ def main():
     _ = plt.title("Coefficients of Ridge models\n via cross-validation")
     plt.show()
 
-
     print('Done !')
 
-x
+
 if __name__ == "__main__":
     main()

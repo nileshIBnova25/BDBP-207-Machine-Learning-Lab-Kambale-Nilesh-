@@ -42,14 +42,25 @@ def weighted_entropy(df,k):
 
 
 def main():
-    col= df.iloc[:,-1]
+    col= df.iloc[:,-1]     #Predict/Label
     #print(col)
+
     parent_e=entropy(col)
+
     print(parent_e)
     cols_no=df.shape[1]
+    max = {"feature_idx" : None ,"best_IG" : 0 }
     for i in range(cols_no - 1):
         w_entropy_of_child = weighted_entropy(df,i)
+        ig =( parent_e - w_entropy_of_child)
         print( f"weighted entropy for feature/column no {i+1}",w_entropy_of_child)
+        print( f"Information Gain for feature/column {i+1}", ig )
+        if ig > max["best_IG"]:
+            max["best_IG"] = ig
+            max["feature_idx"] = i
+        print(f"IG for max Information Gain ", max["best_IG"],)
+
+
 if __name__ == "__main__":
     main()
 
