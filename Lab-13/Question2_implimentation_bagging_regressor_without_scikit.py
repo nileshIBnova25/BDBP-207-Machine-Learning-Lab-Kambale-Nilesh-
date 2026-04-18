@@ -7,7 +7,7 @@ import numpy as np
 #================================================#
 
 class ScratchBaggingRegressor:
-    def __init__(self, n_estimators=10, max_depth=None):
+    def __init__(self, n_estimators=100, max_depth=None):
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.models = []
