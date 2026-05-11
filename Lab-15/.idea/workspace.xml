@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa7c171b-3d4e-4686-9acd-aa6f56fefff2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab-21/question1_k_means_inertia_scratch_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Question1_implementation_Gradient_boost_classification_sckit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Question1_implementation_Gradient_boost_classification_sckit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab-16/Question1_aggregating_all_predictions_from_muldtilple_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab-16/Question1_aggregating_all_predictions_from_muldtilple_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab-17/question1_ transform_vec_&amp;_compute_dot.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab-17/question1_ transform_vec_&amp;_compute_dot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab-17/question3_plotting_support_vector_boundries.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab-17/question3_plotting_support_vector_boundries.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab-20/question1_unsupervised_learning_pcs_&amp;_clustering.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab-20/question1_unsupervised_learning_pcs_&amp;_clustering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab-21/question1_k_means_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab-21/question1_k_means_scratch.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +40,9 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.Question1_Implementation_Gradient_boost_regression.executor": "Run",
+    "Python.Question1_aggregating_all_predictions_from_muldtilple_tree.executor": "Run",
     "Python.Question1_implementation_Gradient_boost_classification_sckit.executor": "Run",
+    "Python.question1_ transform_vec_&_compute_dot.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",

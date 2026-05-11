@@ -1,47 +1,51 @@
-import numpy as np
-from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+import numpy as np
 
-def initialize_centroids(X, K):
-    indices = np.random.choice(X.shape[0], K, replace=False)
+def intialize_centroids(X,K):
+    indices = np.random.choice(X.shape[0], K,replace = False)
     return X[indices]
 
-def assign_clusters(X, centroids):
+def assign_clusters(X,centroids):
     distances = []
-    for c in centroids:
-        dist = np.linalg.norm(X - c, axis=1)
-        distances.append(dist)
-    distances = np.array(distances)
+    for i in centroids:
+        distances.append(np.linalg.norm(X - i ,axis=1))
     return np.argmin(distances, axis=0)
 
-def update_centroids(X, labels, K):
-    new_centroids = []
-    for k in range(K):
-        points = X[labels == k]
-        if len(points) == 0:
-            new_centroids.append(X[np.random.randint(0, X.shape[0])])
+def update_centroids(X,labels ,K):
+    n_centroids = []
+    for i in range(K):
+        clust = X[labels == i]
+        if len(clust) == 0:
+            n_centroids.append(np.random.randint(0,X.shape[0]))
         else:
-            new_centroids.append(points.mean(axis=0))
-    return np.array(new_centroids)
+            n_centroids.append(np.mean(clust,axis=0))
+    return np.array(n_centroids)
 
-def kmeans(X, K=3, max_iters=100):
-    centroids = initialize_centroids(X, K)
-    for i in range(max_iters):
-        labels = assign_clusters(X, centroids)
-        new_centroids = update_centroids(X, labels, K)
+def kmeans(X,K,max_iter):
+    centroids = intialize_centroids(X,K)
+    for i in range(max_iter):
+        clust_label = assign_clusters(X,centroids)
+        new_centroids=update_centroids(X,clust_label,K)
 
-        if np.allclose(centroids, new_centroids):
+        if np.allclose(centroids,new_centroids):
             print(f"Converged at iteration {i+1}")
             break
 
         centroids = new_centroids
+    return centroids,clust_label
 
-    return centroids, labels
+def main():
+    X, y = make_blobs(n_samples=1000,centers=10,random_state=42)
+    centroids,clust_label = kmeans(X,8,100)
 
-X, _ = make_blobs(n_samples=300, centers=3, random_state=42)
+    plt.scatter(X[:, 0],X[:, 1],c=clust_label,cmap='viridis',s=8)
+    plt.scatter(centroids[:, 0],centroids[:, 1],c='red',s=50)
+    plt.show()
 
-centroids, labels = kmeans(X, K=3)
+if __name__ == '__main__':
+    main()
 
-plt.scatter(X[:,0], X[:,1], c=labels, cmap='viridis')
-plt.scatter(centroids[:,0], centroids[:,1], color='red', s=200)
-plt.show()
+
+
+

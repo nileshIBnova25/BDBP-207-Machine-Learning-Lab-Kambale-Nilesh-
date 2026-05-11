@@ -10,25 +10,24 @@ import matplotlib.pyplot as plt
 #---------------------------------------------------------------#
 
 #-------------Loding-Data---------------------------------------#
-df = pd.read_csv('Heart.csv').drop(columns=['Unnamed: 0'], errors='ignore').dropna()
+
+
+# 1. Load and clean simply
+df = pd.read_csv('Heart.csv').dropna()
 df['AHD'] = df['AHD'].map({'Yes': 1, 'No': 0})
 
-X = df.drop(columns=['AHD'])
-y = df['AHD']
+# 2. Convert all text to numbers automatically (The Simple Way)
+# This finds 'ChestPain' and 'Thal' and turns them into 1s and 0s
+df_encoded = pd.get_dummies(df, columns=['ChestPain', 'Thal'], drop_first=True)
 
-categorical_features = ['ChestPain', 'Thal']
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('cat', OneHotEncoder(drop='first'), categorical_features)
-    ],
-    remainder='passthrough' # Leave numeric columns alone
-)
+# 3. Separate features and target
+X = df_encoded.drop(columns=['AHD', 'Unnamed: 0'], errors='ignore')
+y = df_encoded['AHD']
 
-X_encoded = preprocessor.fit_transform(X)
-#---------------------------------------------------------------#
+# 4. Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
-
+print(f"Data ready! New column count: {X.shape[1]}")
 #-----------------model-for-evaluating---------------------------#
 def model_eval(X_train, X_test, y_train, y_test):
 

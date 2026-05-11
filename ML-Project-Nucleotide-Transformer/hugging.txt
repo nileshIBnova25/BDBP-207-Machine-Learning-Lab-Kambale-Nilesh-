@@ -1,0 +1,49 @@
+pip install -U huggingface_hub
+huggingface-cli --version
+
+// Creation of directories
+mkdir -p models/nucleotide_transformer
+cd models/nucleotide_transformer
+
+//Downloding Individual Models
+huggingface-cli download MODEL_NAME --local-dir MODEL_FOLDER --local-dir-use-symlinks False
+
+//Models
+mkdir -p models
+hf download InstaDeepAI/nucleotide-transformer-v2-50m-multi-species \
+    --local-dir models/nt-v2-50m
+
+hf download InstaDeepAI/nucleotide-transformer-v2-50m-3mer-multi-species \
+    --local-dir models/nt-v2-50m-3mer
+
+hf download InstaDeepAI/nucleotide-transformer-v2-100m-multi-species \
+    --local-dir models/nt-v2-100m
+
+hf download InstaDeepAI/nucleotide-transformer-v2-250m-multi-species \
+    --local-dir models/nt-v2-250m
+
+hf download InstaDeepAI/nucleotide-transformer-v2-500m-multi-species \
+    --local-dir models/nt-v2-500m
+
+hf download InstaDeepAI/nucleotide-transformer-500m-human-ref \
+    --local-dir models/nt-500m-human-ref
+
+hf download InstaDeepAI/nucleotide-transformer-500m-1000g \
+    --local-dir models/nt-500m-1000g
+
+hf download InstaDeepAI/nucleotide-transformer-2.5b-multi-species \
+    --local-dir models/nt-2.5b-multi-species
+
+hf download InstaDeepAI/nucleotide-transformer-2.5b-1000g \
+    --local-dir models/nt-2.5b-1000g
+
+//env setup commands
+pip install --upgrade pip
+pip install torch torchvision torchaudio
+pip install transformers accelerate huggingface_hub safetensors sentencepiece
+pip install jupyter ipykernel pandas numpy matplotlib scikit-learn biopython
+
+pip install --upgrade git+https://github.com/huggingface/transformers.gi
+
+pip install transformers==4.57.1
+pip install --upgrade huggingface_hub tokenizers safetensors

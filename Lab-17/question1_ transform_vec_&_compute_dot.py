@@ -28,7 +28,7 @@ def transform2(X):
 #----------------------------------------------------#
 
 def main():
-    phi_x1 = phi_x2 = transform2(x1)
+    phi_x1 = transform2(x1)
     phi_x2 = transform2(x2)
     dot_x = phi_x1 @ phi_x2.T  #computing dot
     print(dot_x)

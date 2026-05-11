@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score , classification_report
 
 #-----------------------IMPORT---------------------------#
 df = pd.read_csv('Weekly.csv')
+print(df.head())
 
 #------------------------Split---------------------------#
 X = df.drop(['Direction', 'Today'], axis=1)
@@ -19,7 +20,7 @@ def main():
     model = GradientBoostingClassifier(
         n_estimators=100,
         learning_rate=0.01,
-        max_depth=5,
+        max_depth=5 ,
         random_state=42
 
     )

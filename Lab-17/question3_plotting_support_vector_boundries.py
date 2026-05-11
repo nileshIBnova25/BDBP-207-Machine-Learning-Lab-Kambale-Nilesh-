@@ -14,7 +14,7 @@ from sklearn.svm import LinearSVC
 X, y = make_blobs(n_samples=40, centers=2, random_state=0)
 
 plt.figure(figsize=(10, 5))
-for i, C in enumerate([1, 100]):
+for i, C in enumerate([1, 100,]):
     # "hinge" is the standard SVM loss
     clf = LinearSVC(C=C, loss="hinge", random_state=42).fit(X, y)
     # obtain the support vectors through the decision function
@@ -24,6 +24,7 @@ for i, C in enumerate([1, 100]):
     # The support vectors are the samples that lie within the margin
     # boundaries, whose size is conventionally constrained to 1
     support_vector_indices = (np.abs(decision_function) <= 1 + 1e-15).nonzero()[0]
+    print(f"decision_function={decision_function[support_vector_indices]}")
     support_vectors = X[support_vector_indices]
 
     plt.subplot(1, 2, i + 1)
@@ -49,5 +50,6 @@ for i, C in enumerate([1, 100]):
         edgecolors="k",
     )
     plt.title("C=" + str(C))
+
 plt.tight_layout()
 plt.show()

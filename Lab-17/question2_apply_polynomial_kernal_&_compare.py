@@ -41,7 +41,7 @@ def main():
     phi_x2 = transform2(x2)
     dot_x = phi_x1 @ phi_x2.T  #computing dot
     plo_k_res = polynomial_kernal(x1,x2)
-    print(f"comparison of polynomial kernal with transform function {dot_x} & {plo_k_res}")
+    print(f"comparison of polynomial kernal with transform function {dot_x[0][0]} & {plo_k_res}")
 
 if __name__ == '__main__':
     main()
